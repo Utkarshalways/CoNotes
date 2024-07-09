@@ -1,6 +1,3 @@
-# Writing the content into a markdown file
-
-
 # CoNotes
 
 CoNotes is a web application designed to help you efficiently create, organize, and manage your notes. Whether you're a student, professional, or someone who loves jotting down ideas, CoNotes provides a simple and intuitive interface to keep all your notes in one place.
