@@ -2,42 +2,54 @@ import React from "react";
 import FileComponent from "./FileComponent";
 // import { Card,CardHeader,CardDescription,CardTitle } from "./components/ui/card";
 // import { ToggleGroup,ToggleGroupItem } from "@radix-ui/react-toggle-group";
-import { CommandDialog, CommandGroup, CommandItem, CommandSeparator,CommandList,CommandInput } from "@/components/ui/command";
-import { Command } from "cmdk";
-
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const sidebar = () => {
   return (
-    <div className="w-1/4 bg-white h-screen border-r border-r-slate-600  flex flex-col justify-between">
-      <div className="w-full ">
-        <h2 className="p-2 border-b border-black font-semibold hover:underline mb-2 text-left text-xl">
-          CoNotes
-        </h2>
+    <div className="w-1/6 bg-white h-full border-r border-r-slate-600  flex flex-col justify-between">
+      <div className="header border-b border-slate-400 p-2  flex justify-between  items-center">
+        <div className="flex items-center gap-2">
+          <h2 className="text-lg">user</h2>
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <i className="fa-light fa-angle-down "></i>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>Dark</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+        <div className="otherdetails flex items-center justify-between gap-4">
+          {/* //there will be a condition here if the sidebar is open then different arrow if not then diff */}
+          <i className="fa-duotone fa-square-left  "></i>
 
-        <Command className="rounded-lg border shadow-md">
-          <CommandInput placeholder="Search Files"/>
-          <CommandList className="w-full">
-            <CommandGroup heading="Previous Files" className="w-full">
-              <CommandItem>
-                <FileComponent fileName={"newfilesa"} />
-              </CommandItem>
-              <CommandItem>
-                <FileComponent fileName={"newfilefadsasf"} />
-              </CommandItem>
-              <CommandItem>
-                <FileComponent fileName={"newfile"} />
-              </CommandItem>
-            </CommandGroup>
-          </CommandList>
-        </Command>
+          <i className="fa-duotone fa-file-circle-plus"></i>
+        </div>
       </div>
 
-      <div className="border border-t-slate-400 py-5 px-2 flex items-center justify-between">
+      <div className="w-full ">
+        <FileComponent fileName={"newfile1"} />
+
+        <FileComponent fileName={"newfile2"} />
+
+        <FileComponent fileName={"newfile3"} />
+      </div>
+
+      <div className="border border-t-slate-400 py-3 px-1 flex items-center justify-between">
         <div className="github">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="28"
-            height="28"
+            width="20"
+            height="20"
             viewBox="0 0 24 24"
           >
             <path
@@ -49,8 +61,8 @@ const sidebar = () => {
         <div className="twitter">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
+            width="18"
+            height="18"
             viewBox="0 0 24 24"
           >
             <path
