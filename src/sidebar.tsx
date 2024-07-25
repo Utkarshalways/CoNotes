@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import FileComponent from "./FileComponent";
 // import { Card,CardHeader,CardDescription,CardTitle } from "./components/ui/card";
 // import { ToggleGroup,ToggleGroupItem } from "@radix-ui/react-toggle-group";
@@ -11,9 +11,25 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const sidebar = () => {
+
+type sidebarProps = {
+
+  isOpen : boolean,
+  toggleSidebar: ()=>void;
+}
+
+const sidebar = ({isOpen,toggleSidebar}:sidebarProps) => {
+
+  
+
   return (
-    <div className="w-1/6 bg-white h-full border-r border-r-slate-600  flex flex-col justify-between">
+    <div
+      className={` ${
+        isOpen
+          ? "w-1/6 bg-white h-full border-r border-r-slate-600  flex flex-col justify-between"
+          : "hidden"
+      }`}
+    >
       <div className="header border-b border-slate-400 p-2  flex justify-between  items-center">
         <div className="flex items-center gap-2">
           <h2 className="text-lg">user</h2>
@@ -22,21 +38,21 @@ const sidebar = () => {
               <i className="fa-light fa-angle-down "></i>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Dark</DropdownMenuItem>
+              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Dark</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
         <div className="otherdetails flex items-center justify-between gap-4">
           {/* //there will be a condition here if the sidebar is open then different arrow if not then diff */}
-          <i className="fa-duotone fa-square-left  "></i>
+          <i className="fa-duotone fa-square-left" onClick={toggleSidebar}></i>
 
           <i className="fa-duotone fa-file-circle-plus"></i>
         </div>
       </div>
 
-      <div className="w-full ">
+      <div className="w-full  ">
         <FileComponent fileName={"newfile1"} />
 
         <FileComponent fileName={"newfile2"} />
