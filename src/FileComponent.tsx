@@ -1,21 +1,36 @@
 import React from 'react'
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
 // import { Card ,CardTitle } from './components/ui/card';
 
 
 const FileComponent = ({fileName}) => {
   return (
-    <div className='flex items-center justify-between p-1 border rounded-md'>
-      {fileName}
+    <div className="flex items-center justify-between bg-white  rounded-md p-2 hover:bg-slate-100">
+      <div className="text-xs">{fileName}</div>
 
-      <ToggleGroup type="single">
-        <ToggleGroupItem value="edit">
-          <i className="fa-light fa-pen-to-square"></i>
-        </ToggleGroupItem>
-        <ToggleGroupItem value="delete">
-          <i className="fa-duotone fa-trash"></i>
-        </ToggleGroupItem>
-      </ToggleGroup>
+      <div className=" flex justify-center  ">
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            <i className="fa-light fa-ellipsis"></i>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>Duplicate</DropdownMenuItem>
+            <DropdownMenuItem>Rename</DropdownMenuItem>
+            <DropdownMenuItem>Delete</DropdownMenuItem>
+         
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
     </div>
   );
 }
