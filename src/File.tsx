@@ -42,13 +42,24 @@ import "@blocknote/mantine/style.css";
     
 
     return (
-      <div>
-        <div className="flex w-full items-center justify-between border-b border-slate-300 p-2">
-          <div className="flex  gap-4 justify-center">
-            <i className={`${isOpen? "hidden":"ml-2 fa-solid fa-arrow-right-from-line"}`} onClick={toggleSidebar}></i>
-            <h2 className="text-xs">{title}</h2>
+      <div className="">
+        <div className="flex w-full bg-mainbg items-center justify-between border-b  p-1">
+          <div className="flex  gap-4 items-center">
+            <i
+              className={`${
+                isOpen
+                  ? "hidden"
+                  : "ml-2 fa-duotone fa-solid fa-square-right cursor-pointer"
+              }`}
+              onClick={toggleSidebar}
+            ></i>
+            <h2 className=" hover:bg-white px-2 py-1 rounded-md text-bold">
+              {title}
+            </h2>
           </div>
-          <div>{date}</div>
+          <div className="text-xs hover:bg-white px-2 py-1 rounded-md text-bold">
+            {date}
+          </div>
         </div>
         <BlockNoteView
           editor={editor}

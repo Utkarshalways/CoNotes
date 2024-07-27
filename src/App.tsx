@@ -3,11 +3,10 @@ import React, { useState, useCallback, useEffect } from "react";
 import "@blocknote/mantine/style.css";
 import { Button } from "./components/ui/button";
 import Sidebar from "./sidebar";
-import Header from "./Header";
 import File from "./File";
 
 export default function App() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -26,7 +25,7 @@ export default function App() {
         <File
           isOpen={isOpen}
           toggleSidebar={toggleSidebar}
-          title={"fileName"}
+          title={"untitled"}
           date="12/july/2024"
         />
       </div>
