@@ -4,6 +4,10 @@ import "@blocknote/mantine/style.css";
 import { Button } from "./components/ui/button";
 import Sidebar from "./sidebar";
 import File from "./File";
+import { Note } from "./types";
+
+
+
 
 export default function App() {
   const [isOpen, setIsOpen] = useState(true);
@@ -12,26 +16,66 @@ export default function App() {
     setIsOpen(!isOpen);
   };
 
+  const [notes, setNotes] = useState<Note[]>([]);
+  const [currNoteIdx, setcurrNoteIdx] = useState<number>(null);
+
+  const addnewNote = () => {
+    const newNote = { id: Date.now(), content: "" };
+    setNotes([...notes, newNote]);
+    setcurrNoteIdx(notes.length);
+  };
+
+  const handleNotechange = (content: string) => {
+    const updatedNotes = [...notes];
+    updatedNotes[currNoteIdx].content = content;
+    setNotes(updatedNotes);
+  };
+
+  const handleselectNote = (index:number) => {
+    setcurrNoteIdx(index);
+  };
+
   return (
     <div className="flex h-screen flex-row">
-      <Sidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
+      <Sidebar
+        isOpen={isOpen}
+        toggleSidebar={toggleSidebar}
+        notes={notes}
+        onselectNote={handleselectNote}
+      />
       <div className="w-full ">
         {/* <BlockNoteView
           editor={editor}
           data-color-scheme="light"
           // onChange={onChange}
         /> */}
-
-        <File
+        {currNoteIdx !== null && (
+          <File 
+          title="untitled"
           isOpen={isOpen}
           toggleSidebar={toggleSidebar}
-          title={"untitled"}
-          date="12/july/2024"
-        />
+            note={notes[currNoteIdx]}
+            onNoteChange={handleNotechange}
+            date=""
+          />
+        )}
+        <button
+          onClick={addnewNote}
+          className="p-2 bg-blue-500 text-white rounded"
+        >
+          New File
+        </button>
       </div>
     </div>
 
-    /* <>
+    
+  );
+}
+
+
+
+
+/* <>
           <div className="wrapper">
             <div>Input (BlockNote Editor):</div>
             <div className="item">
@@ -62,5 +106,3 @@ export default function App() {
             />
           </div>
         </div>*/
-  );
-}
