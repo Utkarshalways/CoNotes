@@ -1,7 +1,6 @@
 import "@blocknote/core/fonts/inter.css";
 import React, { useState, useCallback, useEffect } from "react";
 import "@blocknote/mantine/style.css";
-import { Button } from "./components/ui/button";
 import Sidebar from "./sidebar";
 import File from "./File";
 import { Note } from "./types";
@@ -17,23 +16,36 @@ export default function App() {
   };
 
   const [notes, setNotes] = useState<Note[]>([]);
-  const [currNoteIdx, setcurrNoteIdx] = useState<number>(null);
+  const [currNoteId, setcurrNoteId] = useState<number>(null);
 
   const addnewNote = () => {
     const newNote = { id: Date.now(), content: "" };
     setNotes([...notes, newNote]);
-    setcurrNoteIdx(notes.length);
+    setcurrNoteId(notes.length);
   };
 
   const handleNotechange = (content: string) => {
     const updatedNotes = [...notes];
-    updatedNotes[currNoteIdx].content = content;
+    updatedNotes[currNoteId].content = content;
     setNotes(updatedNotes);
   };
 
-  const handleselectNote = (index:number) => {
-    setcurrNoteIdx(index);
+  const handleselectNote = (
+    id:number) => {
+    setcurrNoteId(id);
   };
+
+  
+  
+  const deleteNote = (id: number) => {
+    setNotes(notes.filter((note) => note.id !== id));
+    if (currNoteId === id) {
+      setcurrNoteId(null);
+    }
+    return null;
+  };
+  
+
 
   return (
     <div className="flex h-screen flex-row">
@@ -42,45 +54,48 @@ export default function App() {
         toggleSidebar={toggleSidebar}
         notes={notes}
         onselectNote={handleselectNote}
+        addNewNote = {addnewNote}
+        deleteNote={deleteNote}
       />
       <div className="w-full ">
-        {/* <BlockNoteView
-          editor={editor}
-          data-color-scheme="light"
-          // onChange={onChange}
-        /> */}
-        {currNoteIdx !== null && (
+
+      
+        {currNoteId !== null && notes.length > 0 && (
           <File 
           title="untitled"
           isOpen={isOpen}
           toggleSidebar={toggleSidebar}
-            note={notes[currNoteIdx]}
-            onNoteChange={handleNotechange}
-            date=""
+          note={notes[currNoteId]}
+          onNoteChange={handleNotechange}
+          date=""
+          deleteNote={deleteNote}
           />
         )}
-        <button
-          onClick={addnewNote}
-          className="p-2 bg-blue-500 text-white rounded"
-        >
-          New File
-        </button>
+        
       </div>
     </div>
 
-    
-  );
+);
 }
 
 
 
 
 /* <>
-          <div className="wrapper">
-            <div>Input (BlockNote Editor):</div>
-            <div className="item">
-             <BlockNoteView editor={editor} onChange={onChange} />    
-            </div>
+// useEffect(() => {
+  
+
+// console.log("hello;;",notes)
+
+  
+// }, [currNoteId,notes])
+
+    
+<div className="wrapper">
+<div>Input (BlockNote Editor):</div>
+<div className="item">
+<BlockNoteView editor={editor} onChange={onChange} />    
+</div>
             <div>Output (HTML):</div>
             <div className="item bordered">
               <pre>

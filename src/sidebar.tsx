@@ -2,6 +2,14 @@ import React, { useState } from "react";
 import FileComponent from "./FileComponent";
 // import { Card,CardHeader,CardDescription,CardTitle } from "./components/ui/card";
 // import { ToggleGroup,ToggleGroupItem } from "@radix-ui/react-toggle-group";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 import { Note } from "./types";
 
@@ -11,9 +19,11 @@ type sidebarProps = {
   toggleSidebar: ()=>void;
   notes : Note[],
   onselectNote : (index: number)=>void;
+  addNewNote : ()=>void;
+  deleteNote : (id:number)=>null;
 }
 
-const sidebar = ({isOpen,toggleSidebar,notes,onselectNote}:sidebarProps ) => {
+const sidebar = ({isOpen,toggleSidebar,notes,onselectNote,addNewNote,deleteNote}:sidebarProps ) => {
 
   
 
@@ -31,7 +41,10 @@ const sidebar = ({isOpen,toggleSidebar,notes,onselectNote}:sidebarProps ) => {
         <div className="otherdetails flex items-center justify-between gap-4">
           {/* //there will be a condition here if the sidebar is open then different arrow if not then diff */}
 
-          <i className="fa-duotone fa-file-circle-plus"></i>
+          <i
+            className="fa-duotone fa-file-circle-plus cursor-pointer"
+            onClick={addNewNote}
+          ></i>
           <i
             className="fa-sharp-duotone fa-solid fa-circle-xmark cursor-pointer"
             onClick={toggleSidebar}
@@ -42,13 +55,36 @@ const sidebar = ({isOpen,toggleSidebar,notes,onselectNote}:sidebarProps ) => {
       <div className="w-full  ">
         <ul>
           {notes.map((note, index) => (
-            <li
+            // <li
+            //   key={note.id}
+            //   onClick={() => onselectNote(index)}
+            //   className="cursor-pointer hover:bg-gray-300 p-2"
+            // >
+            //   Note {index + 1}
+            // </li>
+            <div
+              className="flex items-center justify-between bg-white  rounded-md p-2 hover:bg-slate-100"
               key={note.id}
               onClick={() => onselectNote(index)}
-              className="cursor-pointer hover:bg-gray-300 p-2"
             >
-              Note {index + 1}
-            </li>
+              <div className="text-xs">{"Untitled"}</div>
+              <div className=" flex justify-center  ">
+                <DropdownMenu>
+                  <DropdownMenuTrigger>
+                    <i className="fa-light fa-ellipsis"></i>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>Duplicate</DropdownMenuItem>
+                    <DropdownMenuItem>Rename</DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <span onClick={deleteNote(note.id)}>Delete</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+            </div>
           ))}
         </ul>
       </div>
