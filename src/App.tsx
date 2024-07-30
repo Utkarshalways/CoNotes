@@ -5,34 +5,27 @@ import Sidebar from "./sidebar";
 import File from "./File";
 import { Note } from "./types";
 
-
-
-
 export default function App() {
-
   // this is for the dark mode
-   const [theme, setTheme] = useState<string>("light");
+  const [theme, setTheme] = useState<string>("light");
 
-   useEffect(() => {
-     const storedTheme = localStorage.getItem("theme");
-     if (storedTheme) {
-       setTheme(storedTheme);
-     } else {
-       const userMedia = window.matchMedia("(prefers-color-scheme: dark)");
-       setTheme(userMedia.matches ? "dark" : "light");
-     }
-   }, []);
+  useEffect(() => {
+    const storedTheme = localStorage.getItem("theme");
+    if (storedTheme) {
+      setTheme(storedTheme);
+    } else {
+      const userMedia = window.matchMedia("(prefers-color-scheme: dark)");
+      setTheme(userMedia.matches ? "dark" : "light");
+    }
+  }, []);
 
-   useEffect(() => {
-     document.documentElement.classList.toggle("dark", theme === "dark");
-     localStorage.setItem("theme", theme);
-   }, [theme]);
-
-
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", theme === "dark");
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
   const [isOpen, setIsOpen] = useState(true);
   const [anynotesExist, setanynotesExist] = useState(false);
-
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -53,13 +46,18 @@ export default function App() {
     setNotes(updatedNotes);
   };
 
-  const handleselectNote = (
-    id:number) => {
+  const handleselectNote = (id: number) => {
     setcurrNoteId(id);
   };
 
-  
-  
+  const handlethemeChange = (theme: string) => {
+    if (theme === "light") {
+      setTheme("dark");
+    } else {
+      setTheme("light");
+    }
+  };
+
   const deleteNote = (id: number) => {
     setNotes(notes.filter((note) => note.id !== id));
     if (currNoteId === id) {
@@ -68,29 +66,16 @@ export default function App() {
     return null;
   };
 
-
-  
-    useEffect(() => {
-      
-      if(notes.length > 0){
-        setanynotesExist(true);
-      }
-      else{
-
-        setanynotesExist(false);
-      }
-
-    }, [notes.length]);
-    
-
-  
-
+  useEffect(() => {
+    if (notes.length > 0) {
+      setanynotesExist(true);
+    } else {
+      setanynotesExist(false);
+    }
+  }, [notes.length]);
 
   return (
     <div className="flex h-screen flex-row dark:bg-zinc-800 dark:text-white">
-      <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
-        Toggle Theme
-      </button>
       <Sidebar
         isOpen={isOpen}
         toggleSidebar={toggleSidebar}
@@ -98,6 +83,8 @@ export default function App() {
         onSelectNote={handleselectNote}
         addNewNote={addnewNote}
         deleteNote={deleteNote}
+        theme={theme}
+        handlethemeChange={handlethemeChange}
       />
       <div
         className={`w-full + ${
@@ -120,11 +107,19 @@ export default function App() {
         {notes.length === 0 && (
           // this is for the empty page if there is no file open in the editor tab
 
-          <div className="flex justify-center items-center ">
-            heyy this will show up only if you have not created a file so please
-            create a file
-            <h2></h2>
-            <div></div>
+          <div className="flex justify-center items-center flex-col gap-6 ">
+            <h2 className="text-[#1D2A2F] dark:text-[#9BC1C5] text-4xl ">
+              Create.Edit.Update
+            </h2>
+            <div
+              className="border-[#9BC1C5] border p-3 flex justify-center items-center gap-2 rounded-md hover:text-white hover:bg-[#3C5B62] cursor-pointer hover:border-[#9BC1C5] dark:border-2 group"
+              onClick={addnewNote}
+            >
+              <i className="fa-duotone fa-solid fa-circle-plus text-center"></i>
+              <div className="text-[#1D2A2F] dark:text-[#9BC1C5]  group-hover:text-white">
+                add file
+              </div>
+            </div>
           </div>
         )}
       </div>
@@ -132,47 +127,3 @@ export default function App() {
   );
 }
 
-
-
-
-/* <>
-// useEffect(() => {
-  
-
-// console.log("hello;;",notes)
-
-  
-// }, [currNoteId,notes])
-
-    
-<div className="wrapper">
-<div>Input (BlockNote Editor):</div>
-<div className="item">
-<BlockNoteView editor={editor} onChange={onChange} />    
-</div>
-            <div>Output (HTML):</div>
-            <div className="item bordered">
-              <pre>
-                <code>{html}</code>
-              </pre>
-            </div>
-          </div>
-        </>
-
-        <div className={"wrapper"}>
-          <div>Input (HTML):</div>
-          <div className={"item bordered"}>
-            <code>
-              <textarea defaultValue={html} onChange={htmlInputChanged} />
-            </code>
-          </div>
-          <div>Output (BlockNote Editor):</div>
-          <div className={"item"}>
-            <BlockNoteView
-              editor={editorrr}
-              editable={false}
-              data-color-scheme="light"
-            />
-          </div>
-        </div>*/
-      

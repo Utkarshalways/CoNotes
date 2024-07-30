@@ -16,7 +16,8 @@ type SidebarProps = {
   onSelectNote: (index: number) => void;
   addNewNote: () => void;
   deleteNote: (id: number) => void;
-  // theme:string,
+  theme:string,
+  handlethemeChange:(theme:string) =>void;
 };
 
 const Sidebar = ({
@@ -26,16 +27,18 @@ const Sidebar = ({
   onSelectNote,
   addNewNote,
   deleteNote,
+  theme,
+ handlethemeChange
 }: SidebarProps) => {
   return (
     <div
       className={` ${
         isOpen
-          ? "w-1/5 bg-mainbg h-full border-r flex flex-col justify-between dark:bg-maindbg"
+          ? "w-1/5 bg-mainbg h-full border-r flex flex-col justify-between dark:bg-maindbg dark:border-zinc-500 "
           : "hidden"
       }`}
     >
-      <div className="header border-b p-2 bg-white flex justify-between items-center dark:bg-zinc-700">
+      <div className="header border-b p-2 bg-white flex justify-between items-center dark:bg-zinc-700 dark:border-zinc-500">
         <h2>utkarsh</h2>
         <div className="otherdetails flex items-center justify-between gap-4">
           <i
@@ -55,9 +58,9 @@ const Sidebar = ({
             <li
               key={note.id}
               onClick={() => onSelectNote(index)}
-              className="flex items-center justify-between bg-white rounded-md p-2 hover:bg-slate-100 cursor-pointer dark:bg-mainbg "
+              className="flex items-center justify-between hover:bg-[#F3F8F8] rounded-md p-2 cursor-pointer dark:bg-maindbg dark:text-white dark:hover:bg-[#4F838B] "
             >
-              <div className="text-xs">Note {index + 1}</div>
+              <div className="text-xs">Untitled {index + 1}</div>
               <div className="flex justify-center">
                 <DropdownMenu>
                   <DropdownMenuTrigger>
@@ -79,22 +82,36 @@ const Sidebar = ({
         </ul>
       </div>
 
-      <div className="border-t bg-white py-3 px-1 flex items-center justify-between dark:bg-zinc-700">
+      <div className="border-t bg-white py-3 px-1 flex items-center justify-between dark:bg-zinc-700 dark:border-zinc-500  ">
         <div className="settings flex items-center gap-2">
           <h4 className="text-xs">Settings</h4>
-          <i className="fa-duotone fa-solid fa-gear cursor-pointer"></i>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <i className="fa-duotone fa-solid fa-gear cursor-pointer"></i>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>Theme</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={() => handlethemeChange(theme)}>
+                switch
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
         <div className="flex gap-2">
-           <a href="https://www.linkedin.com/in/utkarsh-sharma-164733228?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">
-          <i className="fa-brands fa-linkedin cursor-pointer h-2"/>
-           </a>
-          
-            <a href="https://github.com/utkarshalways" target="_blank" >
-          <i className="fa-brands fa-square-github cursor-pointer"/>
-         
-            </a>
+          <a
+            href="https://www.linkedin.com/in/utkarsh-sharma-164733228?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+            target="_blank"
+          >
+            <i className="fa-brands fa-linkedin cursor-pointer h-2" />
+          </a>
+
+          <a href="https://github.com/utkarshalways" target="_blank">
+            <i className="fa-brands fa-square-github cursor-pointer" />
+          </a>
           <a href="https://twitter.com/Utkarshalways" target="_blank">
-            <i className="fa-brands fa-square-x-twitter cursor-pointer"/>
+            <i className="fa-brands fa-square-x-twitter cursor-pointer" />
           </a>
         </div>
       </div>
