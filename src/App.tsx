@@ -9,7 +9,30 @@ import { Note } from "./types";
 
 
 export default function App() {
+
+  // this is for the dark mode
+   const [theme, setTheme] = useState<string>("light");
+
+   useEffect(() => {
+     const storedTheme = localStorage.getItem("theme");
+     if (storedTheme) {
+       setTheme(storedTheme);
+     } else {
+       const userMedia = window.matchMedia("(prefers-color-scheme: dark)");
+       setTheme(userMedia.matches ? "dark" : "light");
+     }
+   }, []);
+
+   useEffect(() => {
+     document.documentElement.classList.toggle("dark", theme === "dark");
+     localStorage.setItem("theme", theme);
+   }, [theme]);
+
+
+
   const [isOpen, setIsOpen] = useState(true);
+  const [anynotesExist, setanynotesExist] = useState(false);
+
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -44,38 +67,69 @@ export default function App() {
     }
     return null;
   };
+
+
+  
+    useEffect(() => {
+      
+      if(notes.length > 0){
+        setanynotesExist(true);
+      }
+      else{
+
+        setanynotesExist(false);
+      }
+
+    }, [notes.length]);
+    
+
   
 
 
   return (
-    <div className="flex h-screen flex-row">
+    <div className="flex h-screen flex-row dark:bg-zinc-800 dark:text-white">
+      <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
+        Toggle Theme
+      </button>
       <Sidebar
         isOpen={isOpen}
         toggleSidebar={toggleSidebar}
         notes={notes}
-        onselectNote={handleselectNote}
-        addNewNote = {addnewNote}
+        onSelectNote={handleselectNote}
+        addNewNote={addnewNote}
         deleteNote={deleteNote}
       />
-      <div className="w-full ">
-
-      
+      <div
+        className={`w-full + ${
+          anynotesExist ? `w-full` : `flex justify-center items-center`
+        }`}
+      >
         {currNoteId !== null && notes.length > 0 && (
-          <File 
-          title="untitled"
-          isOpen={isOpen}
-          toggleSidebar={toggleSidebar}
-          note={notes[currNoteId]}
-          onNoteChange={handleNotechange}
-          date=""
-          deleteNote={deleteNote}
+          <File
+            title="untitled"
+            isOpen={isOpen}
+            toggleSidebar={toggleSidebar}
+            note={notes[currNoteId]}
+            onNoteChange={handleNotechange}
+            date=""
+            deleteNote={deleteNote}
+            theme={theme}
           />
         )}
-        
+
+        {notes.length === 0 && (
+          // this is for the empty page if there is no file open in the editor tab
+
+          <div className="flex justify-center items-center ">
+            heyy this will show up only if you have not created a file so please
+            create a file
+            <h2></h2>
+            <div></div>
+          </div>
+        )}
       </div>
     </div>
-
-);
+  );
 }
 
 
@@ -121,3 +175,4 @@ export default function App() {
             />
           </div>
         </div>*/
+      

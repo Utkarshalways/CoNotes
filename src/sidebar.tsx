@@ -1,7 +1,4 @@
-import React, { useState } from "react";
-import FileComponent from "./FileComponent";
-// import { Card,CardHeader,CardDescription,CardTitle } from "./components/ui/card";
-// import { ToggleGroup,ToggleGroupItem } from "@radix-ui/react-toggle-group";
+import React from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,37 +7,37 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
 import { Note } from "./types";
 
-type sidebarProps = {
+type SidebarProps = {
+  isOpen: boolean;
+  toggleSidebar: () => void;
+  notes: Note[];
+  onSelectNote: (index: number) => void;
+  addNewNote: () => void;
+  deleteNote: (id: number) => void;
+  // theme:string,
+};
 
-  isOpen : boolean,
-  toggleSidebar: ()=>void;
-  notes : Note[],
-  onselectNote : (index: number)=>void;
-  addNewNote : ()=>void;
-  deleteNote : (id:number)=>null;
-}
-
-const sidebar = ({isOpen,toggleSidebar,notes,onselectNote,addNewNote,deleteNote}:sidebarProps ) => {
-
-  
-
+const Sidebar = ({
+  isOpen,
+  toggleSidebar,
+  notes,
+  onSelectNote,
+  addNewNote,
+  deleteNote,
+}: SidebarProps) => {
   return (
     <div
       className={` ${
         isOpen
-          ? "w-1/5 bg-mainbg h-full border-r   flex flex-col justify-between"
+          ? "w-1/5 bg-mainbg h-full border-r flex flex-col justify-between dark:bg-maindbg"
           : "hidden"
       }`}
     >
-      <div className="header border-b p-2 bg-white flex justify-between  items-center">
-        <h2 className="">utkarsh</h2>
-
+      <div className="header border-b p-2 bg-white flex justify-between items-center dark:bg-zinc-700">
+        <h2>utkarsh</h2>
         <div className="otherdetails flex items-center justify-between gap-4">
-          {/* //there will be a condition here if the sidebar is open then different arrow if not then diff */}
-
           <i
             className="fa-duotone fa-file-circle-plus cursor-pointer"
             onClick={addNewNote}
@@ -52,56 +49,57 @@ const sidebar = ({isOpen,toggleSidebar,notes,onselectNote,addNewNote,deleteNote}
         </div>
       </div>
 
-      <div className="w-full  ">
+      <div className="w-full dark:bg-maindbg dark:text-black ">
         <ul>
           {notes.map((note, index) => (
-            // <li
-            //   key={note.id}
-            //   onClick={() => onselectNote(index)}
-            //   className="cursor-pointer hover:bg-gray-300 p-2"
-            // >
-            //   Note {index + 1}
-            // </li>
-            <div
-              className="flex items-center justify-between bg-white  rounded-md p-2 hover:bg-slate-100"
+            <li
               key={note.id}
-              onClick={() => onselectNote(index)}
+              onClick={() => onSelectNote(index)}
+              className="flex items-center justify-between bg-white rounded-md p-2 hover:bg-slate-100 cursor-pointer dark:bg-mainbg "
             >
-              <div className="text-xs">{"Untitled"}</div>
-              <div className=" flex justify-center  ">
+              <div className="text-xs">Note {index + 1}</div>
+              <div className="flex justify-center">
                 <DropdownMenu>
                   <DropdownMenuTrigger>
-                    <i className="fa-light fa-ellipsis"></i>
+                    <i className="fa-light fa-ellipsis cursor-pointer"></i>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem>Duplicate</DropdownMenuItem>
                     <DropdownMenuItem>Rename</DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <span onClick={deleteNote(note.id)}>Delete</span>
+                    <DropdownMenuItem onClick={() => deleteNote(note.id)}>
+                      Delete
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
-            </div>
+            </li>
           ))}
         </ul>
       </div>
 
-      <div className="border-t bg-white py-3 px-1 flex items-center justify-between">
+      <div className="border-t bg-white py-3 px-1 flex items-center justify-between dark:bg-zinc-700">
         <div className="settings flex items-center gap-2">
-          <h4 className="text-xs">settings</h4>
+          <h4 className="text-xs">Settings</h4>
           <i className="fa-duotone fa-solid fa-gear cursor-pointer"></i>
         </div>
-        <div className="  flex gap-2 ">
-          <i className="fa-brands fa-linkedin cursor-pointer h-2"></i>
-          <i className="fa-brands fa-square-github cursor-pointer"></i>
-          <i className="fa-brands fa-square-x-twitter cursor-pointer"></i>
+        <div className="flex gap-2">
+           <a href="https://www.linkedin.com/in/utkarsh-sharma-164733228?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">
+          <i className="fa-brands fa-linkedin cursor-pointer h-2"/>
+           </a>
+          
+            <a href="https://github.com/utkarshalways" target="_blank" >
+          <i className="fa-brands fa-square-github cursor-pointer"/>
+         
+            </a>
+          <a href="https://twitter.com/Utkarshalways" target="_blank">
+            <i className="fa-brands fa-square-x-twitter cursor-pointer"/>
+          </a>
         </div>
       </div>
     </div>
   );
 };
 
-export default sidebar;
+export default Sidebar;

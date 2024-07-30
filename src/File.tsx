@@ -12,6 +12,7 @@ type Params = {
   note: Note;
   onNoteChange: (content: string) => void;
   deleteNote : (id:number) => void;
+  theme : string,
 };
 
 const File = ({
@@ -22,6 +23,7 @@ const File = ({
   note,
   onNoteChange,
   deleteNote,
+  theme,
 }: Params) => {
   const editor = useCreateBlockNote();
 
@@ -69,18 +71,18 @@ const File = ({
 
 
   return (
-    <div className="">
-      <div className="flex w-full bg-mainbg items-center justify-between border-b p-1">
+    <>
+      <div className="flex w-full bg-mainbg items-center justify-between border-b p-1 dark:bg-maindbg">
         <div className="flex gap-4 items-center">
           <i
             className={`${
               isOpen
-                ? "hidden"
-                : "ml-2 fa-duotone fa-solid fa-square-right cursor-pointer"
-            }`}
-            onClick={toggleSidebar}
-          ></i>
-          <h2 className="hover:bg-white px-2 py-1 rounded-md text-bold">
+              ? "hidden"
+              : "ml-2 fa-duotone fa-solid fa-square-right cursor-pointer"
+              }`}
+              onClick={toggleSidebar}
+              ></i>
+          <h2 className="hover:bg-white px-2 py-1 rounded-md text-bold dark:hover:bg-zinc-700">
             {title}
           </h2>
         </div>
@@ -90,16 +92,17 @@ const File = ({
         <button
           className="ml-4 text-red-600 hover:text-red-800"
           onClick={() => deleteNote(note.id)} // Call deleteNote with the note's id
-        >
+          >
           Delete Note
         </button>
       </div>
       <BlockNoteView
         editor={editor}
         onChange={handleContentChange}
-        data-color-scheme="light"
-      />
-    </div>
+        data-color-scheme={`${theme==="light" ? "light" : "dark" }`}
+        />
+  
+  </>
   );
 };
 

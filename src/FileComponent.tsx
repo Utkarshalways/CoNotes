@@ -11,7 +11,16 @@ import {
 // import { Card ,CardTitle } from './components/ui/card';
 
 
-const FileComponent = ({fileName}) => {
+type FileComponentProp = {
+
+  filename : string,
+  deleteNote : ()=> void;
+
+
+}
+
+
+const FileComponent = ({fileame,deleteNote} : FileComponentProp) => {
   return (
     <div className="flex items-center justify-between bg-white  rounded-md p-2 hover:bg-slate-100">
       <div className="text-xs">{fileName}</div>
@@ -26,7 +35,7 @@ const FileComponent = ({fileName}) => {
             <DropdownMenuSeparator />
             <DropdownMenuItem>Duplicate</DropdownMenuItem>
             <DropdownMenuItem>Rename</DropdownMenuItem>
-            <DropdownMenuItem>Delete</DropdownMenuItem>
+            <DropdownMenuItem onClick={deleteNote} >Delete</DropdownMenuItem>
          
           </DropdownMenuContent>
         </DropdownMenu>
