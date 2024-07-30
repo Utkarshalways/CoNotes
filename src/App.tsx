@@ -112,7 +112,7 @@ export default function App() {
               Create.Edit.Update
             </h2>
             <div
-              className="border-[#9BC1C5] border p-3 flex justify-center items-center gap-2 rounded-md hover:text-white hover:bg-[#3C5B62] cursor-pointer hover:border-[#9BC1C5] dark:border-2 group"
+              className="border-[#9BC1C5] border p-3 px-7 flex justify-center items-center gap-2 rounded-md hover:text-white hover:bg-[#3C5B62] cursor-pointer hover:border-[#9BC1C5] dark:border-2 group"
               onClick={addnewNote}
             >
               <i className="fa-duotone fa-solid fa-circle-plus text-center"></i>
