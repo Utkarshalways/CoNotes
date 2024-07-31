@@ -1,13 +1,17 @@
 import "@blocknote/core/fonts/inter.css";
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "@blocknote/mantine/style.css";
 import Sidebar from "./sidebar";
 import File from "./File";
 import { Note } from "./types";
+import { useToast } from "./components/ui/use-toast";
+import { Toaster } from "@/components/ui/toaster";
 
 export default function App() {
   // this is for the dark mode
   const [theme, setTheme] = useState<string>("light");
+  const { toast } = useToast();
+
 
   useEffect(() => {
     const storedTheme = localStorage.getItem("theme");
@@ -31,6 +35,8 @@ export default function App() {
     setIsOpen(!isOpen);
   };
 
+  
+
   const [notes, setNotes] = useState<Note[]>([]);
   const [currNoteId, setcurrNoteId] = useState<number>(null);
 
@@ -38,6 +44,10 @@ export default function App() {
     const newNote = { id: Date.now(), content: "" };
     setNotes([...notes, newNote]);
     setcurrNoteId(notes.length);
+     toast({
+       title: "New File Created",
+       description: "You can cross this message Now",
+     });
   };
 
   const handleNotechange = (content: string) => {
@@ -49,6 +59,7 @@ export default function App() {
   const handleselectNote = (id: number) => {
     setcurrNoteId(id);
   };
+
 
   const handlethemeChange = (theme: string) => {
     if (theme === "light") {
@@ -106,15 +117,21 @@ export default function App() {
 
         {notes.length === 0 && (
           // this is for the empty page if there is no file open in the editor tab
-
+        
           <div className="flex justify-center items-center flex-col gap-6 ">
             <h2 className="text-[#1D2A2F] dark:text-[#9BC1C5] text-4xl ">
               Create.Edit.Update
             </h2>
+
             <div
               className="border-[#9BC1C5] border p-3 px-7 flex justify-center items-center gap-2 rounded-md hover:text-white hover:bg-[#3C5B62] cursor-pointer hover:border-[#9BC1C5] dark:border-2 group"
-              onClick={addnewNote}
+              onClick={() => {
+              //  i want to add the toast here
+              addnewNote();
+               
+              }}
             >
+          
               <i className="fa-duotone fa-solid fa-circle-plus text-center"></i>
               <div className="text-[#1D2A2F] dark:text-[#9BC1C5]  group-hover:text-white">
                 add file
@@ -123,7 +140,7 @@ export default function App() {
           </div>
         )}
       </div>
+        <Toaster />
     </div>
   );
 }
-
