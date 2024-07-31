@@ -45,8 +45,8 @@ export default function App() {
     setNotes([...notes, newNote]);
     setcurrNoteId(notes.length);
      toast({
-       title: "New File Created",
-       description: "You can cross this message Now",
+       title: "Created",
+       description: "your file is created now",
      });
   };
 
@@ -74,6 +74,12 @@ export default function App() {
     if (currNoteId === id) {
       setcurrNoteId(null);
     }
+    toast({
+      variant: "destructive",
+      title: "Deleted",
+      description: "your file deleted can not be restored now"
+      
+    });
     return null;
   };
 

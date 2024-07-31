@@ -73,5 +73,3 @@ If you have any questions or feedback, feel free to reach out to us at **utkarsh
 
 Thank you for using CoNotes! We hope it helps you stay organized and productive.
 
-
-

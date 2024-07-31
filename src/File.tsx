@@ -3,6 +3,7 @@ import { useCreateBlockNote } from "@blocknote/react";
 import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
 import { Note } from "./types";
+import { Button } from "./components/ui/button";
 
 type Params = {
   title: string;
@@ -27,25 +28,19 @@ const File = ({
 }: Params) => {
   const editor = useCreateBlockNote();
 
+  const [markdown, setMarkdown] = useState<string>("")
 
-  // const [noteContent, setnoteContent] = useState()
-
+  const onChangeMarkdown = async () => {
+    // Converts the editor's contents from Block objects to Markdown and store to state.
+    const markdown = await editor.blocksToMarkdownLossy(editor.document);
+    setMarkdown(markdown);
+  };
+  
   const handleContentChange = async () => {
     const html = await editor.blocksToHTMLLossy(editor.document);
-    console.log("hello;;html",html);
-    onNoteChange(html); // Update the parent component with the new content
+    onChangeMarkdown();
+    onNoteChange(html); 
   };
-
-
-
-  
-  useEffect(() => {
-    // console.log(note.id)
-    console.log("hello;;editior change")
-    
-  }, [editor])
-  
-  // console.log("editor ki id hai yeh",editor.document);
 
   const fornewhtml = ""
 
@@ -69,6 +64,14 @@ const File = ({
   }, [note, editor]); // Ensure this runs when either note or editor changes
 
 
+  const [copiedText, setCopiedText] = useState('');
+
+  const handleCopy = (text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedText(text);
+  };
+
+
 
   return (
     <div>
@@ -77,11 +80,11 @@ const File = ({
           <i
             className={`${
               isOpen
-              ? "hidden"
-              : "ml-2 fa-duotone fa-solid fa-square-right cursor-pointer"
-              }`}
-              onClick={toggleSidebar}
-              ></i>
+                ? "hidden"
+                : "ml-2 fa-duotone fa-solid fa-square-right cursor-pointer"
+            }`}
+            onClick={toggleSidebar}
+          ></i>
           <h2 className="hover:bg-white px-2 py-1 rounded-md text-bold dark:hover:bg-zinc-700">
             {title}
           </h2>
@@ -93,10 +96,21 @@ const File = ({
       <BlockNoteView
         editor={editor}
         onChange={handleContentChange}
-        data-color-scheme={`${theme==="light" ? "light" : "dark" }`}
-        />
-  
-  </div>
+        data-color-scheme={`${theme === "light" ? "light" : "dark"}`}
+
+
+      />
+
+      <div
+        className="border-[#9BC1C5] border p-3  flex justify-center items-center gap-2 rounded-md hover:text-white hover:bg-[#3C5B62] cursor-pointer hover:border-[#9BC1C5] dark:border-2 group w-32"
+        onClick={()=>handleCopy(markdown)}
+      >
+        <i className="fa-duotone fa-solid fa-circle-plus text-center"></i>
+        <div className="text-[#1D2A2F] dark:text-[#9BC1C5]  group-hover:text-white">
+          copy md 
+        </div>
+      </div>
+    </div>
   );
 };
 
