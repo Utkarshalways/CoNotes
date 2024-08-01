@@ -3,7 +3,16 @@ import { useCreateBlockNote } from "@blocknote/react";
 import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
 import { Note } from "./types";
-import { Button } from "./components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { toast, useToast } from "./components/ui/use-toast";
+import { Toaster } from "@/components/ui/toaster";
 
 type Params = {
   title: string;
@@ -27,8 +36,10 @@ const File = ({
   theme,
 }: Params) => {
   const editor = useCreateBlockNote();
+  const { toast } = useToast();
 
   const [markdown, setMarkdown] = useState<string>("");
+  const [htmll, setHtml] = useState<string>("");
 
   const onChangeMarkdown = async () => {
     // Converts the editor's contents from Block objects to Markdown and store to state.
@@ -39,6 +50,7 @@ const File = ({
   const handleContentChange = async () => {
     const html = await editor.blocksToHTMLLossy(editor.document);
     onChangeMarkdown();
+    setHtml(html);
     onNoteChange(html);
   };
 
@@ -66,6 +78,11 @@ const File = ({
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text);
     setCopiedText(text);
+    toast({
+      variant:"default",
+      title: "Copy",
+      description: "your file is copied in your clipboard",
+    });
   };
 
   return (
@@ -85,7 +102,7 @@ const File = ({
           </h2>
         </div>
         <div className="text-xs hover:bg-white px-2 py-1 rounded-md text-bold">
-          {date}
+          {date}  
         </div>
       </div>
       <BlockNoteView
@@ -94,17 +111,32 @@ const File = ({
         data-color-scheme={`${theme === "light" ? "light" : "dark"}`}
       />
 
-      <div className="CopyBtns  flex justify-evenly  m-12">
-        <div
-          className="border-[#9BC1C5] text-maindbg border p-3  flex justify-center items-center gap-2 rounded-md hover:text-white hover:bg-[#3C5B62] cursor-pointer hover:border-[#9BC1C5] dark:border-2 group "
-          onClick={() => handleCopy(markdown)}
-        >
-          <i className="fa-duotone fa-solid fa-copy"></i>
-          <div className="text-maindbg dark:text-[#9BC1C5]  group-hover:text-white">
-            copy md 
-          </div>
-        </div>
-    </div>
+      <div className="CopyBtns flex justify-evenly  m-12">
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            <div className="border-[#9BC1C5] text-maindbg border p-3 px-7 flex justify-center items-center gap-2 rounded-md hover:text-white hover:bg-[#3C5B62] cursor-pointer hover:border-[#9BC1C5] dark:border-2 group">
+              <h1 className="text-maindbg dark:text-[#9BC1C5]  group-hover:text-white">
+                copy
+              </h1>
+              <i className="fa-duotone fa-solid fa-square-caret-down"></i>
+            </div>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel className="">File</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={() => handleCopy(markdown)}>
+              markdown
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                handleCopy(htmll);
+              }}
+            >
+              html
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
     </div>
   );
 };

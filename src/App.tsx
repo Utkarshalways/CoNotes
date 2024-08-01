@@ -58,6 +58,9 @@ export default function App() {
 
   const handleselectNote = (id: number) => {
     setcurrNoteId(id);
+    //  toast({
+    //    description: "on your destination",
+    //  });
   };
 
 
@@ -78,7 +81,6 @@ export default function App() {
       variant: "destructive",
       title: "Deleted",
       description: "your file deleted can not be restored now"
-      
     });
     return null;
   };
@@ -125,12 +127,12 @@ export default function App() {
           // this is for the empty page if there is no file open in the editor tab
         
           <div className="flex justify-center items-center flex-col gap-6 ">
-            <h2 className="text-[#1D2A2F] dark:text-[#9BC1C5] text-4xl ">
+            <h2 className="text-maindbg dark:text-[#9BC1C5] text-6xl ">
               Create.Edit.Update
             </h2>
 
             <div
-              className="border-[#9BC1C5] border p-3 px-7 flex justify-center items-center gap-2 rounded-md hover:text-white hover:bg-[#3C5B62] cursor-pointer hover:border-[#9BC1C5] dark:border-2 group"
+              className="border-mainbg border text-mainbg bg-maindbg p-3 px-7 flex justify-center items-center gap-2 rounded-md hover:text-maindbg hover:bg-mainbg cursor-pointer hover:border-[#9BC1C5] dark:border-2 group"
               onClick={() => {
              
               addnewNote();
@@ -139,7 +141,7 @@ export default function App() {
             >
           
               <i className="fa-duotone fa-solid fa-circle-plus text-center"></i>
-              <div className="text-[#1D2A2F] dark:text-[#9BC1C5]  group-hover:text-white">
+              <div className="text-white dark:text-[#9BC1C5]  group-hover:text-maindbg">
                 add file
               </div>
             </div>

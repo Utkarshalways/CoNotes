@@ -65,24 +65,23 @@ const Sidebar = ({
 
         <div className="w-full dark:bg-maindbg dark:text-black ">
           <div className="mt-2 flex flex-col justify-center gap-2">
+                {notes.length != 0 && (
+                  <div>
             <div className="dark:text-white mx-2">
+              
             Files
             </div>
             <ScrollArea className="h-72 w-full  border-y ">
               <ul>
-                {notes.length === 0 && (
 
-                    <div className="dark:text-white text-sm m-4">
-                      create your First File
-                    </div>
-                )}
+                
 
                 {notes.map((note, index) => (
                   <li
                     key={note.id}
                     onClick={() => onSelectNote(index)}
                     className="flex items-center justify-between hover:bg-[#F3F8F8] rounded-md p-2 cursor-pointer dark:bg-maindbg dark:text-white dark:hover:bg-[#4F838B] "
-                  >
+                    >
                     <div className="text-xs">Untitled {index + 1}</div>
                     <div className="flex justify-center">
                       <DropdownMenu>
@@ -104,6 +103,8 @@ const Sidebar = ({
                 ))}
               </ul>
             </ScrollArea>
+                </div>
+        )}
           </div>
         </div>
       </div>
