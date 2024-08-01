@@ -92,7 +92,7 @@ export default function App() {
   }, [notes.length]);
 
   return (
-    <div className="flex h-screen flex-row dark:bg-zinc-800 dark:text-white">
+    <div className="flex min-h-screen overflow-auto flex-row dark:bg-zinc-800 dark:text-white">
       <Sidebar
         isOpen={isOpen}
         toggleSidebar={toggleSidebar}
@@ -132,7 +132,7 @@ export default function App() {
             <div
               className="border-[#9BC1C5] border p-3 px-7 flex justify-center items-center gap-2 rounded-md hover:text-white hover:bg-[#3C5B62] cursor-pointer hover:border-[#9BC1C5] dark:border-2 group"
               onClick={() => {
-              //  i want to add the toast here
+             
               addnewNote();
                
               }}
