@@ -9,7 +9,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Note } from "./types";
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar,  AvatarImage } from "@/components/ui/avatar";
+import logo from "./assets/logo.jpeg";
 
 type SidebarProps = {
   isOpen: boolean;
@@ -45,7 +46,7 @@ const Sidebar = ({
           <h2 className="flex justify-center items-center ">
             <Avatar className="h-6 w-7 mr-2">
               <AvatarImage
-                src="https://images.pexels.com/photos/346529/pexels-photo-346529.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                src={logo}
                 alt="pic"
               />
             </Avatar>
