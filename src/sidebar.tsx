@@ -45,11 +45,11 @@ const Sidebar = ({
           <h2 className="flex justify-center items-center ">
             <Avatar className="h-6 w-7 mr-2">
               <AvatarImage
-                src="https://images.pexels.com/photos/6633/car-superhero-symbol-batman.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                src="https://images.pexels.com/photos/346529/pexels-photo-346529.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                 alt="pic"
               />
             </Avatar>
-            utkarsh
+            User
           </h2>
           <div className="otherdetails flex items-center justify-between gap-4">
             <i
@@ -65,46 +65,42 @@ const Sidebar = ({
 
         <div className="w-full dark:bg-maindbg dark:text-black ">
           <div className="mt-2 flex flex-col justify-center gap-2">
-                {notes.length != 0 && (
-                  <div>
-            <div className="dark:text-white mx-2">
-              
-            Files
-            </div>
-            <ScrollArea className="h-72 w-full  border-y ">
-              <ul>
-
-                
-
-                {notes.map((note, index) => (
-                  <li
-                    key={note.id}
-                    onClick={() => onSelectNote(index)}
-                    className="flex items-center justify-between hover:bg-[#F3F8F8] rounded-md p-2 cursor-pointer dark:bg-maindbg dark:text-white dark:hover:bg-[#4F838B] "
-                    >
-                    <div className="text-xs">Untitled {index + 1}</div>
-                    <div className="flex justify-center">
-                      <DropdownMenu>
-                        <DropdownMenuTrigger>
-                          <i className="fa-light fa-ellipsis cursor-pointer"></i>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent>
-                          <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                          <DropdownMenuSeparator />
-                          <DropdownMenuItem>Duplicate</DropdownMenuItem>
-                          <DropdownMenuItem>Rename</DropdownMenuItem>
-                          <DropdownMenuItem onClick={() => deleteNote(note.id)}>
-                            Delete
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </ScrollArea>
-                </div>
-        )}
+            {notes.length != 0 && (
+              <div>
+                <div className="dark:text-white mx-2">Files</div>
+                <ScrollArea className="h-72 w-full  border-y ">
+                  <ul>
+                    {notes.map((note, index) => (
+                      <li
+                        key={note.id}
+                        onClick={() => onSelectNote(index)}
+                        className="flex items-center justify-between hover:bg-[#F3F8F8] rounded-md p-2 cursor-pointer dark:bg-maindbg dark:text-white dark:hover:bg-[#4F838B] "
+                      >
+                        <div className="text-xs">Untitled {index + 1}</div>
+                        <div className="flex justify-center">
+                          <DropdownMenu>
+                            <DropdownMenuTrigger>
+                              <i className="fa-light fa-ellipsis cursor-pointer"></i>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent>
+                              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                              <DropdownMenuSeparator />
+                              <DropdownMenuItem>Duplicate</DropdownMenuItem>
+                              <DropdownMenuItem>Rename</DropdownMenuItem>
+                              <DropdownMenuItem
+                                onClick={() => deleteNote(note.id)}
+                              >
+                                Delete
+                              </DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </ScrollArea>
+              </div>
+            )}
           </div>
         </div>
       </div>

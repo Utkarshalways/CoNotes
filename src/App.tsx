@@ -132,7 +132,7 @@ export default function App() {
             </h2>
 
             <div
-              className="border-mainbg border text-mainbg bg-maindbg p-3 px-7 flex justify-center items-center gap-2 rounded-md hover:text-maindbg hover:bg-mainbg cursor-pointer hover:border-[#9BC1C5] dark:border-2 group"
+              className="border-mainbg border text-mainbg bg-maindbg p-3 w-48 flex  items-center gap-2 rounded-md hover:text-maindbg hover:bg-mainbg cursor-pointer hover:border-[#9BC1C5] dark:border-2 group justify-center "
               onClick={() => {
              
               addnewNote();
@@ -141,7 +141,8 @@ export default function App() {
             >
           
               <i className="fa-duotone fa-solid fa-circle-plus text-center"></i>
-              <div className="text-white dark:text-[#9BC1C5]  group-hover:text-maindbg">
+              <div className="text-white dark:white
+                group-hover:text-maindbg">
                 add file
               </div>
             </div>

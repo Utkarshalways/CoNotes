@@ -114,7 +114,7 @@ const File = ({
       <div className="CopyBtns flex justify-evenly  m-12">
         <DropdownMenu>
           <DropdownMenuTrigger>
-            <div className="border-[#9BC1C5] text-maindbg border p-3 px-7 flex justify-center items-center gap-2 rounded-md hover:text-white hover:bg-[#3C5B62] cursor-pointer hover:border-[#9BC1C5] dark:border-2 group">
+            <div className="border-[#9BC1C5] text-maindbg border p-3 w-48 flex justify-center items-center gap-2 rounded-md hover:text-white hover:bg-[#3C5B62] cursor-pointer hover:border-[#9BC1C5] dark:border-2 group">
               <h1 className="text-maindbg dark:text-[#9BC1C5]  group-hover:text-white">
                 copy
               </h1>
