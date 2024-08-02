@@ -1,6 +1,6 @@
 # CoNotes
 
-CoNotes is a web application designed to help you efficiently create, organize, and manage your notes. Whether you're a student, professional, or someone who loves jotting down ideas, CoNotes provides a simple and intuitive interface to keep all your notes in one place.
+CoNotes is a web application designed to help you efficiently create, organize, and manage your notes. Whether you're a student, professional, or someone who loves jotting down ideas, CoNotes provides a simple and intuitive interface to keep all your notes in one place. and store them in Markdown and Html files
 
 ***It is not fully completed yet the work is on progress***
 
@@ -51,15 +51,6 @@ To run CoNotes locally, follow these steps:
 5. **Sync Notes:**
    Ensure you are connected to the internet to sync your notes across devices.
 
-## Contributing
-
-We welcome contributions from the community. To contribute:
-
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature-branch`).
-3. Commit your changes (`git commit -m 'Add some feature`).
-4. Push to the branch (`git push origin feature-branch`).
-5. Create a new Pull Request.
 
 ## License
 
