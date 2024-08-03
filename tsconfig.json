@@ -1,8 +1,10 @@
 {
   "compilerOptions": {
     // ...
-    // "moduleResolution": "Node16",
-    // "module":"Node16",
+    "moduleResolution": "Bundler",
+    "module":"ES2015",
+    "skipLibCheck": true,
+    // "moduleResolution": "node16",
     "baseUrl": ".",
     "esModuleInterop": true,
     "jsx": "react",
