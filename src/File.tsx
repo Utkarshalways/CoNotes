@@ -11,8 +11,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { toast, useToast } from "./components/ui/use-toast";
-import { Toaster } from "@/components/ui/toaster";
+import {  useToast } from "./components/ui/use-toast";
+
 
 type Params = {
   title: string;

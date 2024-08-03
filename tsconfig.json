@@ -1,8 +1,10 @@
 {
   "compilerOptions": {
     // ...
+    // "moduleResolution": "Node16",
+    // "module":"Node16",
     "baseUrl": ".",
-    "esModuleInterop":true,
+    "esModuleInterop": true,
     "jsx": "react",
     "paths": {
       "@/*": ["./src/*"]

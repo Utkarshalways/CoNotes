@@ -27,6 +27,7 @@
     "lucide-react": "^0.401.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "rollup": "^4.19.2",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7"
   },
