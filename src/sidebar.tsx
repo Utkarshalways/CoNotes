@@ -35,20 +35,15 @@ const Sidebar = ({
 }: SidebarProps) => {
   return (
     <div
-      className={` ${
-        isOpen
-          ? "w-1/5 bg-mainbg min-h-screen border-r flex flex-col justify-between overflow-auto dark:bg-maindbg dark:border-zinc-500 "
-          : "hidden"
+      className={`w-1/5 md:w-1/4 lg:w-1/5 bg-mainbg min-h-screen border-r flex flex-col justify-between overflow-auto dark:bg-maindbg dark:border-zinc-500 transition-transform duration-300 ease-in-out transform   ${
+        isOpen ? "translate-x-0" : "hidden"
       }`}
     >
       <div>
         <div className="header border-b p-2 bg-white flex justify-between items-center dark:bg-zinc-700 dark:border-zinc-500">
           <h2 className="flex justify-center items-center ">
             <Avatar className="h-6 w-7 mr-2">
-              <AvatarImage
-                src={logo}
-                alt="pic"
-              />
+              <AvatarImage src={logo} alt="pic" />
             </Avatar>
             User
           </h2>

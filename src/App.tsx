@@ -12,6 +12,24 @@ export default function App() {
   const [theme, setTheme] = useState<string>("light");
   const { toast } = useToast();
 
+   const [time, setTime] = useState<string>('');
+
+    useEffect(() => {
+        const updateTime = () => {
+            const now = new Date();
+            setTime(now.toLocaleTimeString());
+        };
+
+        // Update time immediately
+        updateTime();
+
+        // Set up an interval to update the time every second
+        const intervalId = setInterval(updateTime, 1000);
+
+        // Clear the interval on component unmount
+        return () => clearInterval(intervalId);
+    }, []);
+
 
   useEffect(() => {
     const storedTheme = localStorage.getItem("theme");
@@ -40,10 +58,12 @@ export default function App() {
   const [notes, setNotes] = useState<Note[]>([]);
   const [currNoteId, setcurrNoteId] = useState<number>(null);
 
+
   const addnewNote = () => {
     const newNote = { id: Date.now(), content: "" };
     setNotes([...notes, newNote]);
     setcurrNoteId(notes.length);
+   
      toast({
        title: "Created",
        description: "your file is created now",
@@ -93,6 +113,7 @@ export default function App() {
     }
   }, [notes.length]);
 
+  
   return (
     <div className="flex min-h-screen overflow-auto flex-row dark:bg-zinc-800 dark:text-white">
       <Sidebar
@@ -112,12 +133,12 @@ export default function App() {
       >
         {currNoteId !== null && notes.length > 0 && (
           <File
-            title="untitled"
+            title={"untitled " + (currNoteId + 1)}
             isOpen={isOpen}
             toggleSidebar={toggleSidebar}
             note={notes[currNoteId]}
             onNoteChange={handleNotechange}
-            date=""
+            date= {time}
             deleteNote={deleteNote}
             theme={theme}
           />
