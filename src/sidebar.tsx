@@ -35,7 +35,7 @@ const Sidebar = ({
 }: SidebarProps) => {
   return (
     <div
-      className={`w-1/5 md:w-1/4 lg:w-1/5 bg-mainbg min-h-screen border-r flex flex-col justify-between overflow-auto dark:bg-maindbg dark:border-zinc-500 transition-transform duration-300 ease-in-out transform   ${
+      className={` w-1/5 md:w-1/4 lg:w-1/5 bg-mainbg min-h-screen border-r flex flex-col justify-between overflow-auto dark:bg-maindbg dark:border-zinc-500 transition-transform duration-300 ease-in-out transform    ${
         isOpen ? "translate-x-0" : "hidden"
       }`}
     >
