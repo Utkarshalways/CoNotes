@@ -8,8 +8,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Note } from "./types";
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Avatar,  AvatarImage } from "@/components/ui/avatar";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Avatar,AvatarImage } from "@/components/ui/avatar";
 import logo from "./assets/logo.jpeg";
 
 type SidebarProps = {
@@ -19,8 +19,8 @@ type SidebarProps = {
   onSelectNote: (index: number) => void;
   addNewNote: () => void;
   deleteNote: (id: number) => void;
-  theme:string,
-  handlethemeChange:(theme:string) =>void;
+  theme: string;
+  handlethemeChange: (theme: string) => void;
 };
 
 const Sidebar = ({
@@ -31,7 +31,7 @@ const Sidebar = ({
   addNewNote,
   deleteNote,
   theme,
- handlethemeChange
+  handlethemeChange,
 }: SidebarProps) => {
   return (
     <div

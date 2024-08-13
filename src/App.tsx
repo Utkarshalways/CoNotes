@@ -12,24 +12,23 @@ export default function App() {
   const [theme, setTheme] = useState<string>("light");
   const { toast } = useToast();
 
-   const [time, setTime] = useState<string>('');
+  const [time, setTime] = useState<string>("");
 
-    useEffect(() => {
-        const updateTime = () => {
-            const now = new Date();
-            setTime(now.toLocaleTimeString());
-        };
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      setTime(now.toLocaleTimeString());
+    };
 
-        // Update time immediately
-        updateTime();
+    // Update time immediately
+    updateTime();
 
-        // Set up an interval to update the time every second
-        const intervalId = setInterval(updateTime, 1000);
+    // Set up an interval to update the time every second
+    const intervalId = setInterval(updateTime, 1000);
 
-        // Clear the interval on component unmount
-        return () => clearInterval(intervalId);
-    }, []);
-
+    // Clear the interval on component unmount
+    return () => clearInterval(intervalId);
+  }, []);
 
   useEffect(() => {
     const storedTheme = localStorage.getItem("theme");
@@ -53,21 +52,41 @@ export default function App() {
     setIsOpen(!isOpen);
   };
 
-  
-
   const [notes, setNotes] = useState<Note[]>([]);
   const [currNoteId, setcurrNoteId] = useState<number>(null);
 
+  // Retrieve notes from localStorage when the component mounts
+  useEffect(() => {
+    const storedNotes = localStorage.getItem("notes");
+    if (storedNotes) {
+      const parsedNotes = JSON.parse(storedNotes);
+      setNotes(parsedNotes);
+      if (parsedNotes.length > 0) {
+        setcurrNoteId(parsedNotes[0].id); // Automatically select the first note
+        setanynotesExist(true); // Update the anyNotesExist state
+      }
+    }
+  }, []);
 
+  // Save notes to localStorage whenever the notes array changes
+  useEffect(() => {
+    if (notes.length > 0) {
+      localStorage.setItem("notes", JSON.stringify(notes));
+      setanynotesExist(true);
+    } else {
+      setanynotesExist(false);
+    }
+  }, [notes]);
+  
   const addnewNote = () => {
     const newNote = { id: Date.now(), content: "" };
     setNotes([...notes, newNote]);
     setcurrNoteId(notes.length);
-   
-     toast({
-       title: "Created",
-       description: "your file is created now",
-     });
+
+    toast({
+      title: "Created",
+      description: "your file is created now",
+    });
   };
 
   const handleNotechange = (content: string) => {
@@ -82,7 +101,6 @@ export default function App() {
     //    description: "on your destination",
     //  });
   };
-
 
   const handlethemeChange = (theme: string) => {
     if (theme === "light") {
@@ -100,7 +118,7 @@ export default function App() {
     toast({
       variant: "destructive",
       title: "Deleted",
-      description: "your file deleted can not be restored now"
+      description: "your file deleted can not be restored now",
     });
     return null;
   };
@@ -113,7 +131,6 @@ export default function App() {
     }
   }, [notes.length]);
 
-  
   return (
     <div className="flex min-h-screen overflow-auto flex-row dark:bg-zinc-800 dark:text-white">
       <Sidebar
@@ -138,7 +155,7 @@ export default function App() {
             toggleSidebar={toggleSidebar}
             note={notes[currNoteId]}
             onNoteChange={handleNotechange}
-            date= {time}
+            date={time}
             deleteNote={deleteNote}
             theme={theme}
           />
@@ -146,7 +163,7 @@ export default function App() {
 
         {notes.length === 0 && (
           // this is for the empty page if there is no file open in the editor tab
-        
+
           <div className="flex justify-center items-center flex-col gap-6 ">
             <h2 className="text-maindbg dark:text-[#9BC1C5] text-6xl ">
               Create.Edit.Update
@@ -155,22 +172,21 @@ export default function App() {
             <div
               className="border-mainbg border text-mainbg bg-maindbg p-3 w-48 flex  items-center gap-2 rounded-md hover:text-maindbg hover:bg-mainbg cursor-pointer hover:border-[#9BC1C5] dark:border-2 group justify-center "
               onClick={() => {
-             
-              addnewNote();
-               
+                addnewNote();
               }}
             >
-          
               <i className="fa-duotone fa-solid fa-circle-plus text-center"></i>
-              <div className="text-white dark:white
-                group-hover:text-maindbg">
+              <div
+                className="text-white dark:white
+                group-hover:text-maindbg"
+              >
                 add file
               </div>
             </div>
           </div>
         )}
       </div>
-        <Toaster />
+      <Toaster />
     </div>
   );
 }
