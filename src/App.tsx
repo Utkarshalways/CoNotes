@@ -6,6 +6,7 @@ import File from "./File";
 import { Note } from "./types";
 import { useToast } from "./components/ui/use-toast";
 import { Toaster } from "@/components/ui/toaster";
+import {auth , db, fconfig} from "../src/config/firebaseconfig"
 
 export default function App() {
   // this is for the dark mode
@@ -19,7 +20,8 @@ export default function App() {
       const now = new Date();
       setTime(now.toLocaleTimeString());
     };
-
+    console.log(fconfig.apiKey)
+    console.log(fconfig.authDomain)
     // Update time immediately
     updateTime();
 

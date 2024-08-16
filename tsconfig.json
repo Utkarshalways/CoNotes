@@ -2,7 +2,7 @@
   "compilerOptions": {
     // ...
     "moduleResolution": "Bundler",
-    "module":"ES2015",
+    "module":"ES2020",
     "skipLibCheck": true,
     // "moduleResolution": "node16",
     "baseUrl": ".",
