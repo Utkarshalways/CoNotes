@@ -7,6 +7,7 @@ import { Note } from "./types";
 import { useToast } from "./components/ui/use-toast";
 import { Toaster } from "@/components/ui/toaster";
 import {auth , db, fconfig} from "../src/config/firebaseconfig"
+import Login from "./auth/Login";
 
 export default function App() {
   // this is for the dark mode
@@ -189,6 +190,7 @@ export default function App() {
         )}
       </div>
       <Toaster />
+      {/* <Login/> */}
     </div>
   );
 }
