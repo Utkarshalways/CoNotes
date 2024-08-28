@@ -62,7 +62,7 @@ export default function App() {
       const parsedNotes = JSON.parse(storedNotes);
       setNotes(parsedNotes);
       if (parsedNotes.length > 0) {
-        setcurrNoteId(parsedNotes[0].id); // Automatically select the first note
+        setcurrNoteId(0); // Automatically select the first note  // bug fixed
         setanynotesExist(true); // Update the anyNotesExist state
       }
     }
